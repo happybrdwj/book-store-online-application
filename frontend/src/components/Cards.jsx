@@ -4,7 +4,7 @@ export default function Cards({ item }) {
     return (
         <>
             <div>
-                <div classname="">
+                <div>
                     <div className=" cursor-pointer card bg-base-100 w-full ml-1 shadow-sm hover:scale-105 duration-500 border border-transparent dark:hover:border-white/30 ">
                         <figure>
                             <img

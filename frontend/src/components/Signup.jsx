@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Login from './Login'
 import { useForm } from "react-hook-form"
+import axios from "axios";
 
 function Signup() {
     const {
@@ -9,7 +10,28 @@ function Signup() {
         handleSubmit,
         formState: { errors },
     } = useForm()
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = async (data) => {
+        const userinfo = {
+            fullname : data.fullname,
+            email : data.email,
+            password : data.password
+        }
+        console.log(userinfo)
+        await axios.post("http://localhost:4001/user/signup", userinfo)
+        .then((res)=>{
+            console.log(res.data)
+            if (res.data) {
+                alert("signup successfull")
+            }
+            console.log(res.data.user)
+            localStorage.setItem("Users", JSON.stringify(res.data.user));
+        }).catch((err)=>{
+            if(err.response){
+                console.log(err)
+                alert("Error: "+err.response.data.message)
+            }
+        })
+    }
     return (
         <div>
             <div id="my_modal_3" className="flex justify-center items-center h-screen">
@@ -27,8 +49,8 @@ function Signup() {
                                 <label className="input validator  focus-within:border-gray-300 ">
 
                                     <input type="text" placeholder="Type your password" required
-                                    {...register("Name", { required: true })} />
-                                    {errors.Name && <span>This field is required</span>}
+                                    {...register("fullname", { required: true })} />
+                                    {errors.fullname && <span>This field is required</span>}
                                 </label>
 
                             </div>
@@ -66,16 +88,8 @@ function Signup() {
                             </label>
                             <div className='flex justify-between '>
                                 <button className="btn btn-secondary mt-5 ml-3 hover:cursor-pointer ">Signup</button>
-                                <div className="mt-8 flex">Have Account!
-                                    <div className=" cursor-pointer ml-2 text-blue-500"
-                                        onClick={() => document.getElementById("my_modal_32").showModal()}
-                                    >
-
-                                        Login
-                                    </div>
-                                    <Login />
-
-                                </div>
+                                <p className='mt-8 '>Hey! completed Signup <br /> Go to<a href="/" className='text-pink-300 hover:text-green-500 cursor-pointer'
+                                > home</a> </p>
                             </div>
                         </div>
                     </form>
