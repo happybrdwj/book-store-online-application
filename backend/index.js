@@ -28,6 +28,10 @@ try {
 app.use("/book", bookRoute)
 app.use("/user", userRoute)
 
+app.get("/", (req, res) => {
+  res.send("Book Store Backend is running!");
+});
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
