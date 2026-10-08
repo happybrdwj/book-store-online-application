@@ -17,7 +17,7 @@ function Signup() {
             password : data.password
         }
         console.log(userinfo)
-        await axios.post("http://localhost:4001/user/signup", userinfo)
+        await axios.post("https://book-store-online-application.onrender.com/user/signup", userinfo)
         .then((res)=>{
             console.log(res.data)
             if (res.data) {
